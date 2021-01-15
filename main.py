@@ -1,11 +1,14 @@
 import os
 import discord
-import messages
+import constants
 import random
 import API.RaiderIoApi.affixesApi as affixAPI
 import API.RaiderIoApi.characterApi as charAPI
+import API.LeagueApi.summonerApi as summonerAPI
 
 from dotenv import load_dotenv
+
+
 
 client = discord.Client()
 load_dotenv()
@@ -21,20 +24,22 @@ async def on_ready():
 @client.event
 async def on_message(message):
     channel = message.channel
-    msg = message.content
+    msg = message.content.lower()
     if message.author == client.user:
         return
-    if message.content.startswith("character"):
+    if msg.startswith("character"):
         realm = msg.split()[1]
         charName = msg.split()[2]
         if realm == None or charName == None:
-            await channel.send(messages.charHelp)
+            await channel.send(message.charHelp)
         else:
-            await channel.send(charAPI.Character(realm, charName))
+            await channel.send(charAPI.getCharacter(realm, charName))
     elif msg.startswith("affixes"):
-        await channel.send(affixAPI.Affixes())
+        await channel.send(affixAPI.getAffixes())
+    elif msg.startswith("summoner"):
+        await channel.send(summonerAPI.GetSummonerDetails())
     elif msg == "raiderio help":
-        await channel.send(messages.helpString)
+        await channel.send(message.helpString)
 
 
 client.run(os.getenv('TOKEN'))

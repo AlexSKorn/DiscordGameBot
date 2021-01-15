@@ -6,6 +6,9 @@ class Summoner:
         self.name = name
         self.level = level
 
-    def makeSummoner(id, accountId, puuid, name, level):
+    def makeSummoner(self, id, accountId, puuid, name, level):
         summoner = Summoner(id, accountId, puuid, name, level)
         return summoner
+
+    def printSummoner(self):
+        print(self.id, self.accountId, self.puuid, self.name, self.level)

@@ -21,8 +21,8 @@ langCode = "en_US"
 # https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/monitorman33
 
 
-def SummonerLevel(summonerId):
-        response = requests.get(
+def GetSummonerDetails(summonerId):
+    response = requests.get(
         platformRouting + summonerByNameUrl, params=summonerId)
-    summoner = Summoner()
-    return summoner
+    sumResp = json.loads(response)
+    return summoner.makeSummoner(sumResp["id"], sumResp["accountId"], sumResp["puuid"], sumResp["name"], sumResp["summonerLevel"])
