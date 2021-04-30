@@ -4,7 +4,7 @@ baseString = "https://raider.io/api/v1/characters/profile"
 region = "us"
 
 
-def getCharacter(realm, charName):
+def getCharacter(realm, charName, bestRunString=None):
     query = {"region": region, "realm": realm,
              "name": charName, "fields": bestRunString}
     response = requests.get(baseString, params=query)
@@ -31,7 +31,7 @@ def readMPlusData(charJson):
 
 
 def readRaidData(charJson):
-    raidProgress = jsonResp["raid_progression"]
+    raidProgress = charJson["raid_progression"]
     raidString = ("Normal: {0} \nHeroic: {1}".format(
         raidProgress["normal_bosses_killed"], raidProgress["heroic_bosses_killed"]))
     return raidString

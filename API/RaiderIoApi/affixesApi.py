@@ -1,4 +1,5 @@
 import requests
+import json
 
 baseString = "https://raider.io/api/v1/mythic-plus/affixes"
 query = {"region": "us", "locale": "en"}
